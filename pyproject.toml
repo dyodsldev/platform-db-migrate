@@ -1,0 +1,22 @@
+[project]
+name = "platform-db-migrate"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dbt-postgres>=1.10.0",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "sqlfluff>=3.5.0",
+]
+
+[tool.sqlfluff.core]
+dialect = "postgres"
+templater = "dbt"
+
+[tool.sqlfluff.indentation]
+tab_space_size = 4
