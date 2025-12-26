@@ -1,0 +1,16 @@
+id,facility_id,code,name,generic_name,brand_name,drug_class,category
+1,,METFORMIN_500,Metformin 500mg,Metformin,Glucophage,Biguanide,oral_antidiabetic
+2,,METFORMIN_850,Metformin 850mg,Metformin,Glucophage,Biguanide,oral_antidiabetic
+3,,METFORMIN_1000,Metformin 1000mg,Metformin,Glucophage,Biguanide,oral_antidiabetic
+4,,GLIBENCLAMIDE_5,Glibenclamide 5mg,Glibenclamide,Daonil,Sulfonylurea,oral_antidiabetic
+5,,GLICLAZIDE_80,Gliclazide 80mg,Gliclazide,Diamicron,Sulfonylurea,oral_antidiabetic
+6,,GLIMEPIRIDE_2,Glimepiride 2mg,Glimepiride,Amaryl,Sulfonylurea,oral_antidiabetic
+7,,SITAGLIPTIN_100,Sitagliptin 100mg,Sitagliptin,Januvia,DPP-4 Inhibitor,oral_antidiabetic
+8,,EMPAGLIFLOZIN_10,Empagliflozin 10mg,Empagliflozin,Jardiance,SGLT2 Inhibitor,oral_antidiabetic
+9,,INSULIN_REGULAR,Insulin Regular,Insulin Regular,Actrapid,Insulin,injectable
+10,,INSULIN_NPH,Insulin NPH,Insulin NPH,Insulatard,Insulin,injectable
+11,,INSULIN_GLARGINE,Insulin Glargine,Insulin Glargine,Lantus,Long-acting Insulin,injectable
+12,,ATORVASTATIN_20,Atorvastatin 20mg,Atorvastatin,Lipitor,Statin,lipid_lowering
+13,,ASPIRIN_75,Aspirin 75mg,Aspirin,Cardiprin,Antiplatelet,cardiovascular
+14,,RAMIPRIL_5,Ramipril 5mg,Ramipril,Tritace,ACE Inhibitor,antihypertensive
+15,,AMLODIPINE_5,Amlodipine 5mg,Amlodipine,Norvasc,Calcium Channel Blocker,antihypertensive

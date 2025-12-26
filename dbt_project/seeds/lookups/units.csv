@@ -1,0 +1,11 @@
+id,facility_id,code,name,symbol,base_unit_id,conversion_factor
+1,,MG_DL,Milligrams per Deciliter,mg/dL,,1.0
+2,,MMOL_L,Millimoles per Liter,mmol/L,1,18.0
+3,,PERCENT,Percentage,%,,1.0
+4,,KG,Kilograms,kg,,1.0
+5,,CM,Centimeters,cm,,1.0
+6,,MMHG,Millimeters of Mercury,mmHg,,1.0
+7,,UNITS,Units,U,,1.0
+8,,G_L,Grams per Liter,g/L,,1.0
+9,,MG_L,Milligrams per Liter,mg/L,,1.0
+10,,UMOL_L,Micromoles per Liter,μmol/L,,1.0

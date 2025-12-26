@@ -1,0 +1,10 @@
+id,code,name,category,severity_levels
+1,RETINOPATHY,Diabetic Retinopathy,eye,"mild,moderate,severe,proliferative"
+2,NEUROPATHY,Diabetic Neuropathy,nerve,"mild,moderate,severe"
+3,NEPHROPATHY,Diabetic Nephropathy,kidney,"stage_1,stage_2,stage_3,stage_4,stage_5"
+4,CVD,Cardiovascular Disease,heart,"mild,moderate,severe"
+5,FOOT_ULCER,Diabetic Foot Ulcer,foot,"grade_1,grade_2,grade_3,grade_4,grade_5"
+6,HYPOGLYCEMIA,Severe Hypoglycemia,metabolic,"mild,moderate,severe"
+7,KETOACIDOSIS,Diabetic Ketoacidosis,metabolic,"mild,moderate,severe"
+8,HYPEROSMOLAR,Hyperosmolar Hyperglycemic State,metabolic,"mild,moderate,severe"
+9,OTHER,Other Complication,other,"mild,moderate,severe"

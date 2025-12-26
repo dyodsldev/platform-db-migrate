@@ -1,0 +1,8 @@
+id,code,name,sort_order
+1,NO_FORMAL,No Formal Education,1
+2,PRIMARY,Primary Education,2
+3,SECONDARY,Secondary Education,3
+4,O_LEVEL,O Level,4
+5,A_LEVEL,A Level,5
+6,DIPLOMA,Diploma,6
+7,DEGREE_PLUS,Degree or Higher,7

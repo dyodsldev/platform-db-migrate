@@ -1,0 +1,11 @@
+id,facility_id,code,name,category,is_baseline,typical_interval_days
+1,,BASELINE,Baseline Visit,initial,true,0
+2,,FOLLOWUP_1M,1 Month Follow-up,routine,false,30
+3,,FOLLOWUP_3M,3 Month Follow-up,routine,false,90
+4,,FOLLOWUP_6M,6 Month Follow-up,routine,false,180
+5,,FOLLOWUP_1Y,Annual Follow-up,routine,false,365
+6,,EMERGENCY,Emergency Visit,urgent,false,0
+7,,SPECIALIST,Specialist Consultation,referral,false,0
+8,,LAB_ONLY,Lab Results Review,routine,false,14
+9,,MEDICATION_REVIEW,Medication Review,routine,false,90
+10,,COMPLICATION,Complication Assessment,urgent,false,0

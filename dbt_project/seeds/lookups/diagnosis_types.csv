@@ -1,0 +1,7 @@
+id,code,name,category,description
+1,T1DM,Type 1 Diabetes Mellitus,diabetes,Insulin-dependent diabetes
+2,T2DM,Type 2 Diabetes Mellitus,diabetes,Non-insulin-dependent diabetes
+3,GDM,Gestational Diabetes Mellitus,diabetes,Diabetes during pregnancy
+4,PREDIABETES,Prediabetes,diabetes,Impaired glucose tolerance
+5,MODY,Maturity Onset Diabetes of the Young,diabetes,Genetic form of diabetes
+6,SECONDARY,Secondary Diabetes,diabetes,Diabetes due to other conditions

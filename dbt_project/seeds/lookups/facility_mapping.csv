@@ -1,0 +1,6 @@
+old_organization_id,old_organization_code,new_facility_id,new_facility_code,new_facility_name,migration_notes
+507f1f77bcf86cd799439011,ORG001,1,GH-CMB,General Hospital Colombo,Main facility - no changes
+507f1f77bcf86cd799439012,ORG002,2,CC-NEG,City Clinic Negombo,Clinic conversion
+507f1f77bcf86cd799439013,ORG003,3,DH-CAN,District Hospital Kandy,Code changed from KAN to CAN
+507f1f77bcf86cd799439014,ORG004,4,HC-GAL,Health Center Galle,Type changed
+507f1f77bcf86cd799439015,ORG005,5,SH-JAF,Specialty Hospital Jaffna,New specialty

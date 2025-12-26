@@ -1,3 +1,10 @@
+# Large MongoDB exports for migration
+dbt_project/seeds/mongodb/medicaldb.*.csv
+dbt_project/seeds/mongodb/*.bak
+
+# Keep the seed folder structure
+!dbt_project/seeds/mongodb/.gitkeep
+
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -10,10 +17,10 @@ wheels/
 .venv
 
 # dbt
-dbt/target/
-dbt/dbt_packages/
-dbt/logs/
-logs
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+logs/
 
 # uv
 .uv/

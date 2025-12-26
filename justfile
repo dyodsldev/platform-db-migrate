@@ -5,7 +5,7 @@
 set shell := ["zsh", "-uc"]
 
 # Variables
-dbt_dir := "dbt"
+dbt_dir := "dbt_project"
 python_version := "3.11"
 
 # Default recipe

@@ -1,0 +1,16 @@
+id,facility_id,code,name,category,default_unit_id,normal_range_min,normal_range_max,is_routine
+1,,HBA1C,Hemoglobin A1c,blood_glucose,3,4.0,5.6,true
+2,,FBS,Fasting Blood Sugar,blood_glucose,1,70,100,true
+3,,PPBS,Post Prandial Blood Sugar,blood_glucose,1,80,140,true
+4,,RBS,Random Blood Sugar,blood_glucose,1,80,140,false
+5,,CREATININE,Serum Creatinine,kidney,1,0.6,1.2,true
+6,,UREA,Blood Urea Nitrogen,kidney,1,7,20,true
+7,,CHOLESTEROL,Total Cholesterol,lipid,1,0,200,true
+8,,HDL,HDL Cholesterol,lipid,1,40,60,true
+9,,LDL,LDL Cholesterol,lipid,1,0,100,true
+10,,TRIGLYCERIDES,Triglycerides,lipid,1,0,150,true
+11,,ALT,Alanine Aminotransferase,liver,7,7,56,false
+12,,AST,Aspartate Aminotransferase,liver,7,10,40,false
+13,,MICROALBUMIN,Urine Microalbumin,kidney,1,0,30,true
+14,,TSH,Thyroid Stimulating Hormone,thyroid,7,0.4,4.0,false
+15,,VITAMIN_D,Vitamin D,vitamin,1,20,50,false
