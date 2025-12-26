@@ -1,0 +1,209 @@
+version: 2
+
+models:
+  - name: patients
+    description: "Patient master records"
+
+    columns:
+      - name: id
+        description: "Primary key (UUID)"
+        tests:
+          - unique
+          - not_null
+
+      - name: mongodb_patient_id
+        description: "Original MongoDB patient ID"
+        tests:
+          - not_null
+
+      - name: code
+        description: "Patient code/number"
+        tests:
+          - unique
+          - not_null
+
+      - name: current_facility_id
+        description: "Current facility where patient is registered"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('facilities')
+              field: id
+              severity: error
+
+      - name: registered_facility_id
+        description: "Original registration facility"
+        tests:
+          - relationships:
+              to: ref('facilities')
+              field: id
+              severity: error
+
+      - name: owner_user_id
+        description: "User who owns/manages this patient"
+        tests:
+          - relationships:
+              to: ref('users')
+              field: id
+              severity: warn
+
+  - name: patient_versions  # ← FIXED: Same indentation as 'patients'
+    description: >
+      Temporal history of patient medical records.
+      Each row represents a snapshot of patient state at a specific point in time.
+      Use this for historical analysis, trend tracking, and audit trails.
+    
+    meta:
+      owner: "Platform Team"
+      contains_pii: true
+    
+    columns:
+      - name: id
+        description: "Primary key (UUID)"
+        tests:
+          - unique
+          - not_null
+      
+      - name: patient_id
+        description: "References patients table"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('patients')
+              field: id
+      
+      - name: facility_id
+        description: "Facility where visit occurred"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('facilities')
+              field: id
+      
+      - name: version_number
+        description: "Sequential version number per patient (1, 2, 3...)"
+        tests:
+          - not_null
+      
+      - name: valid_from
+        description: "Start of temporal validity period"
+        tests:
+          - not_null
+      
+      - name: valid_to
+        description: "End of temporal validity period (NULL for current version)"
+      
+      - name: is_current
+        description: "This is the current/latest version for this patient"
+        tests:
+          - not_null
+      
+      - name: is_baseline
+        description: "This is the baseline/initial visit"
+        tests:
+          - not_null
+      
+      - name: visit_date
+        description: "Date of visit/assessment"
+        tests:
+          - not_null
+      
+      - name: diagnosis_code
+        description: "Diagnosis type code"
+      
+      - name: source_type
+        description: "Source of this version (history or followup)"
+        tests:
+          - accepted_values:
+              values: ['history', 'followup']
+      
+      - name: created_by_user_id
+        description: "User who created this record"
+        tests:
+          - relationships:
+              to: ref('users')
+              field: id
+              config:
+                severity: warn
+    
+    tests:
+      # Each patient should have exactly one current version
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - patient_id
+            - is_current
+          config:
+            where: "is_current = true"
+
+  - name: patient_transfers
+    description: >
+      Patient transfers between facilities.
+      Schema is defined and ready, but table is currently empty.
+      Will be populated when transfer functionality is implemented in the application.
+    
+    meta:
+      owner: "Platform Team"
+      contains_pii: false
+      status: "schema_only"
+    
+    columns:
+      - name: id
+        description: "Primary key (UUID)"
+        tests:
+          - unique
+          - not_null
+      
+      - name: patient_id
+        description: "Patient being transferred"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('patients')
+              field: id
+      
+      - name: from_facility_id
+        description: "Facility transferring patient from"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('facilities')
+              field: id
+      
+      - name: to_facility_id
+        description: "Facility transferring patient to"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('facilities')
+              field: id
+      
+      - name: from_doctor_id
+        description: "Doctor at source facility"
+        tests:
+          - relationships:
+              to: ref('users')
+              field: id
+      
+      - name: to_doctor_id
+        description: "Doctor at destination facility"
+        tests:
+          - relationships:
+              to: ref('users')
+              field: id
+      
+      - name: transfer_type
+        description: "Type of transfer"
+        tests:
+          - accepted_values:
+              values: ['permanent', 'temporary', 'consultation', 'emergency']
+      
+      - name: urgency_level
+        description: "Transfer urgency"
+        tests:
+          - accepted_values:
+              values: ['routine', 'urgent', 'emergency']
+      
+      - name: status
+        description: "Current transfer status"
+        tests:
+          - not_null

@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: lookup_diagnosis_types
+    description: "Diagnosis type reference data (Type 1, Type 2, MODY, etc.)"
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: code
+        tests: [unique, not_null]
+
+  - name: lookup_complication_types
+    description: "Diabetes complication types (retinopathy, neuropathy, etc.)"
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: code
+        tests: [unique, not_null]
+
+  - name: lookup_education_levels
+    description: "Education level categories"
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: code
+        tests: [unique, not_null]
+
+  - name: lookup_followup_types
+    description: "Follow-up appointment types"
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: code
+        tests: [unique, not_null]
+
+  - name: lookup_medications
+    description: "Medication reference data"
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: code
+        tests: [unique, not_null]
+
+  - name: lookup_test_types
+    description: "Medical test types (HbA1c, FBS, etc.)"
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: code
+        tests: [unique, not_null]
+
+  - name: lookup_units
+    description: "Measurement units (mg/dL, mmol/L, etc.)"
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: code
+        tests: [unique, not_null]

@@ -1,0 +1,243 @@
+version: 2
+
+models:
+  - name: facilities
+    description: >
+      Healthcare facilities (hospitals, clinics, health centers).
+      Source of truth for all facility data. Migrated from MongoDB organizations.
+    
+    meta:
+      owner: "Platform Team"
+      contains_pii: false
+    
+    columns:
+      - name: id
+        description: "Primary key (UUID)"
+        tests:
+          - unique
+          - not_null
+      
+      - name: legacy_facility_id
+        description: "Original facility ID from facility_mapping (for reference only)"
+        tests:
+          - not_null
+      
+      - name: code
+        description: "Unique facility code (e.g., 'FAC001')"
+        tests:
+          - unique
+          - not_null
+      
+      - name: name
+        description: "Official facility name"
+        tests:
+          - not_null
+      
+      - name: type
+        description: "Facility type (hospital, clinic, health_center)"
+        tests:
+          - accepted_values:
+              values: ['hospital', 'clinic', 'health_center', 'lab', 'pharmacy']
+      
+      - name: address
+        description: "Street address"
+      
+      - name: city
+        description: "City"
+      
+      - name: district
+        description: "District"
+      
+      - name: province
+        description: "Province"
+      
+      - name: country
+        description: "Country (default: Sri Lanka)"
+        tests:
+          - not_null
+      
+      - name: postal_code
+        description: "Postal/ZIP code"
+      
+      - name: phone
+        description: "Primary contact phone"
+      
+      - name: email
+        description: "Primary contact email"
+        tests:
+          - dbt_utils.email:
+              config:
+                severity: warn
+      
+      - name: website
+        description: "Facility website URL"
+      
+      - name: has_lab
+        description: "Has laboratory services"
+        tests:
+          - not_null
+      
+      - name: has_pharmacy
+        description: "Has pharmacy services"
+        tests:
+          - not_null
+      
+      - name: has_imaging
+        description: "Has imaging/radiology services"
+        tests:
+          - not_null
+      
+      - name: mongodb_org_id
+        description: "Original MongoDB organization ID (migration reference)"
+      
+      - name: mongodb_org_code
+        description: "Original MongoDB organization code (migration reference)"
+      
+      - name: is_active
+        description: "Facility is currently operational"
+        tests:
+          - not_null
+      
+      - name: is_unmapped
+        description: "Flag for facilities found in patient data but not in facility_mapping (requires manual review)"
+        tests:
+          - not_null
+      
+      - name: opened_date
+        description: "Date facility opened"
+      
+      - name: migration_notes
+        description: "Notes from data migration process"
+      
+      - name: created_at
+        description: "Record creation timestamp"
+        tests:
+          - not_null
+      
+      - name: updated_at
+        description: "Record last updated timestamp"
+        tests:
+          - not_null
+
+  - name: users
+    description: >
+      System users (doctors, nurses, administrators, etc.).
+      Contains authentication, profile, and role assignment data.
+      Migrated from MongoDB users collection.
+    
+    meta:
+      owner: "Platform Team"
+      contains_pii: true
+      pii_fields: ['email', 'phone', 'first_name', 'last_name', 'emergency_contact', 'emergency_phone']
+    
+    columns:
+      - name: id
+        description: "Primary key (UUID)"
+        tests:
+          - unique
+          - not_null
+      
+      - name: mongodb_user_id
+        description: "Original MongoDB user ID (migration reference)"
+        tests:
+          - not_null
+      
+      - name: username
+        description: "Unique username for login"
+        tests:
+          - unique
+          - not_null
+      
+      - name: email
+        description: "User email address"
+        tests:
+          - unique
+          - dbt_utils.email:
+              config:
+                severity: warn
+      
+      - name: password_hash
+        description: "Hashed password (bcrypt)"
+        tests:
+          - not_null
+      
+      - name: first_name
+        description: "User's first name"
+      
+      - name: last_name
+        description: "User's last name"
+      
+      - name: title
+        description: "Professional title (Dr., Prof., etc.)"
+      
+      - name: phone
+        description: "Primary contact phone"
+      
+      - name: license_number
+        description: "Professional license number"
+      
+      - name: specialization
+        description: "Medical specialization (if applicable)"
+      
+      - name: department
+        description: "Department assignment"
+      
+      - name: emergency_contact
+        description: "Emergency contact name"
+      
+      - name: emergency_phone
+        description: "Emergency contact phone"
+      
+      - name: role_id
+        description: "User's role (references roles table)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('roles')
+              field: id
+              config:
+                severity: error
+      
+      - name: primary_facility_id
+        description: "Primary facility assignment (references facilities table)"
+        tests:
+          - relationships:
+              to: ref('facilities')
+              field: id
+              config:
+                severity: warn
+      
+      - name: mfa_enabled
+        description: "Multi-factor authentication enabled"
+        tests:
+          - not_null
+      
+      - name: mfa_secret
+        description: "MFA secret key (encrypted)"
+      
+      - name: is_active
+        description: "User account is active"
+        tests:
+          - not_null
+      
+      - name: activation_date
+        description: "Date user account was activated"
+      
+      - name: last_login_at
+        description: "Last successful login timestamp"
+      
+      - name: failed_login_attempts
+        description: "Count of consecutive failed login attempts"
+      
+      - name: locked_until
+        description: "Account locked until this timestamp (after too many failed attempts)"
+      
+      - name: created_at
+        description: "Record creation timestamp"
+        tests:
+          - not_null
+      
+      - name: updated_at
+        description: "Record last updated timestamp"
+        tests:
+          - not_null

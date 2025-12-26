@@ -69,22 +69,22 @@ users_mapped AS (
         CASE 
             WHEN LOWER(COALESCE(u.mongodb_role_name, u.mongodb_role_id)) LIKE '%admin%' 
                 AND NOT LOWER(COALESCE(u.mongodb_role_name, u.mongodb_role_id)) LIKE '%facility%'
-                THEN 1  -- System Admin
+                THEN 1
             WHEN LOWER(COALESCE(u.mongodb_role_name, u.mongodb_role_id)) LIKE '%facility%admin%' 
-                THEN 2  -- Facility Admin
+                THEN 2
             WHEN LOWER(COALESCE(u.mongodb_role_name, u.mongodb_role_id)) LIKE '%doctor%' 
-                THEN 4  -- Doctor
+                THEN 4
             WHEN LOWER(COALESCE(u.mongodb_role_name, u.mongodb_role_id)) LIKE '%nurse%' 
-                THEN 5  -- Nurse
+                THEN 5
             WHEN LOWER(COALESCE(u.mongodb_role_name, u.mongodb_role_id)) LIKE '%lab%' 
-                THEN 6  -- Lab Tech
+                THEN 6
             WHEN LOWER(COALESCE(u.mongodb_role_name, u.mongodb_role_id)) LIKE '%reception%' 
-                THEN 8  -- Receptionist
-            ELSE 7  -- Data Clerk
+                THEN 8
+            ELSE 7
         END AS role_id,
         
-        -- Use inferred facility
-        COALESCE(pf.primary_facility_id, '1')::text AS primary_facility_id,
+        -- Facility
+        pf.primary_facility_id,
         
         -- User details
         u.username,
@@ -99,7 +99,6 @@ users_mapped AS (
         u.department,
         u.mfa_enabled,
         u.is_active,
-        u.activation_date,
         u.created_at,
         u.updated_at,
         

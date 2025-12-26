@@ -93,7 +93,7 @@ facilities AS (
     SELECT 
         id AS facility_id,
         code AS facility_code,
-        mongodb_organization_code
+        mongodb_org_code
     FROM {{ ref('int_facilities') }}
 ),
 
@@ -110,7 +110,7 @@ patients_with_facility AS (
     SELECT
         p.patient_id,
         p.patient_code,
-        COALESCE(f.facility_id, '1')::text AS facility_id
+        f.facility_id
     FROM patients p
     LEFT JOIN (
         SELECT DISTINCT 
@@ -121,7 +121,7 @@ patients_with_facility AS (
     ) ph ON p.patient_code = ph.patient_code
     LEFT JOIN facilities f 
         ON ph.owner = f.facility_code
-        OR ph.owner = f.mongodb_organization_code
+        OR ph.owner = f.mongodb_org_code
 ),
 
 -- Create versions with temporal data

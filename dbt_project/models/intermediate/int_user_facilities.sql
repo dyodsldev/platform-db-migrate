@@ -6,7 +6,6 @@
 }}
 
 -- Create M:M user-facility mapping
--- Every user gets assigned to their primary facility (or default if none)
 WITH users AS (
     SELECT * FROM {{ ref('int_users_with_roles') }}
 ),
@@ -14,21 +13,21 @@ WITH users AS (
 user_facility_mapping AS (
     SELECT
         gen_random_uuid() AS id,
-        u.id AS user_id,  -- ← Use the UUID 'id' from int_users_with_roles
-        COALESCE(u.primary_facility_id, '1') AS facility_id,  -- ← Default to facility '1' if NULL
+        u.id AS user_id,
+        u.primary_facility_id AS facility_id,  -- ← FIXED: Removed COALESCE
+        
         CASE 
             WHEN u.primary_facility_id IS NOT NULL THEN true 
             ELSE false 
-        END AS is_primary,  -- ← Only primary if they have an actual facility
+        END AS is_primary,
+        
         true AS can_manage_patients,
         
-        -- Admin roles can view all patients in facility
         CASE 
-            WHEN u.role_id IN (1, 2, 3, 7) THEN true  -- ← Kept role 3
+            WHEN u.role_id IN (1, 2, 3, 7) THEN true
             ELSE false 
         END AS can_view_all_patients,
         
-        -- Admins and doctors can transfer patients
         CASE
             WHEN u.role_id IN (1, 2, 4) THEN true
             ELSE false
@@ -39,7 +38,7 @@ user_facility_mapping AS (
         CURRENT_TIMESTAMP AS assigned_at
         
     FROM users u
-    -- ← Removed WHERE clause - now includes ALL users
+    WHERE u.primary_facility_id IS NOT NULL  -- ← Only include users with facilities
 )
 
 SELECT * FROM user_facility_mapping

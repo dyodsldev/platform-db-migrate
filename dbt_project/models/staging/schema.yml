@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: stg_users
+    description: "Cleaned user data from MongoDB users collection"
+    columns:
+      - name: mongodb_user_id
+        description: "MongoDB _id field"
+        tests:
+          - unique
+          - not_null
+
+      - name: username
+        description: "Username"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_patients
+    description: "Cleaned patient master data from MongoDB patients collection"
+    columns:
+      - name: mongodb_patient_id
+        description: "MongoDB _id field"
+        tests:
+          - unique
+          - not_null
+
+      - name: patient_code
+        description: "Patient code/number"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_patient_history
+    description: "Historical patient records from MongoDB patient_history collection (13,713 rows)"
+    columns:
+      - name: mongodb_history_id
+        description: "MongoDB _id field"
+        tests:
+          - unique
+          - not_null
+
+      - name: patient_code
+        description: "References patient"
+        tests:
+          - not_null
+
+  - name: stg_patient_followups
+    description: "Patient follow-up visit records from MongoDB patient_followups collection (3,119 rows)"
+    columns:
+      - name: mongodb_followup_id
+        description: "MongoDB _id field"
+        tests:
+          - unique
+          - not_null
+
+      - name: patient_code
+        description: "References patient"
+        tests:
+          - not_null
+
+  - name: stg_roles
+    description: "User roles from MongoDB roles collection"
+    columns:
+      - name: mongodb_role_id
+        description: "MongoDB _id field"
+        tests:
+          - unique
+          - not_null
+
+      - name: role_name
+        description: "Role name"
+        tests:
+          - not_null
