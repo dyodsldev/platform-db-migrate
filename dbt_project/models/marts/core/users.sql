@@ -18,8 +18,8 @@ SELECT
     mongodb_user_id,
     username,
     password_hash,
-    first_name,
-    last_name,
+    COALESCE(first_name, username, 'User') AS first_name,
+    COALESCE(last_name, 'User') AS last_name,
     role_id,
     primary_facility_id,  -- ← Can be NULL
     mfa_enabled,
